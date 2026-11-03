@@ -219,3 +219,40 @@ footer {
     padding: 8px 4px;
   }
 }
+
+.page-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.page-nav button {
+  min-width: 0;
+  flex: 0 0 auto;
+  width: auto;
+  padding: 0.6rem 1rem;
+}
+.analysis-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.analysis-filters label {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 160px;
+}
+.analysis-filters input {
+  padding: 0.7rem;
+  border: 1px solid #ccd7e3;
+  border-radius: 6px;
+}
+.analysis-chart {
+  height: 260px;
+  width: 100%;
+  min-width: 0;
+}
+section[aria-label="Statistical analysis"] article {
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}

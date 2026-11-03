@@ -124,3 +124,9 @@ After loading both documented datasets, run `python3 scripts/smoke.py` and `pyth
 See [corporate pilot](docs/corporate-pilot.md) for exact sources, verified 2026-09-30 membership, identity/share-class decisions, private replay commands, validation counts and the Bloomberg export checklist. The live Explorer now includes Siemens AG alongside explicitly synthetic examples. Original/normalized emissions are separate, the report's estimation/extrapolation limitations are retained, and sparse prices do not generate daily returns. No migration or replacement ingestion framework was needed.
 
 The private source/CSV bundle is present locally under ignored `data/private/siemens_pilot_v1/`; it is deliberately absent from public Git. Only source references/checksums/coverage are in `data/acquisition/`. Replay locally with the commands in the pilot document. **Not ready for correlation analysis:** daily adjusted prices and enough comparable annual disclosures are still required. The user confirmed Bloomberg export permission remains unconfirmed.
+
+### Statistical analysis (Task 04)
+
+Open **Analysis** beside Explorer. Real data is the default; Siemens correctly shows “Insufficient verified corporate observations for statistical analysis.” No corporate correlation is fabricated. Read-only endpoints: `/api/analysis/readiness`, `/api/analysis/returns`, `/api/analysis/correlations`, `/api/analysis/sectors`; e.g. `?start_year=2024&end_year=2024`. Panel summaries require `mode=panel`; full typed filters/responses are in `/docs`.
+
+See [statistical methodology](docs/statistical-methodology.md) for return/volatility formulas, publication-aware annual pairing, carbon comparability, configurable thresholds, withheld significance, tests and optional local analyst review configuration. No review file is approved by default. Original/private acquired data is unchanged. Rebuild backend after updating dependencies: `docker compose up --build -d backend`.

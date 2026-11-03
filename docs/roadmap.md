@@ -19,3 +19,7 @@ Portfolio configuration, long/short position views, carbon-penalty controls and 
 ## Phase 5 — Historical evaluation
 
 Point-in-time returns, risk, carbon exposure and performance evaluation with transaction/shorting costs where justified. Address survivorship, look-ahead and revision bias; write research conclusions with limitations and reproducible experiments.
+
+## Task 04 — exploratory analysis engine
+
+Implemented read-only financial/carbon/correlation services, typed analysis endpoints, conservative evidence gates, Analysis tab and deterministic synthetic validation. See [statistical methodology](statistical-methodology.md) for formulas, threshold conventions and review configuration. Real Siemens remains statistically insufficient (no adjusted daily series, one company). Next: permitted complete price histories, comparable carbon disclosures across companies/years, reviewed calendars/boundaries and a justified inferential design. No optimizer or backtest has been added.

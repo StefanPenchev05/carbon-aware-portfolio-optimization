@@ -1,3 +1,4 @@
+import type { Correlation, Data } from "../types/analysis";
 import type { Company, Price, Emission } from "../types/data";
 const base = import.meta.env.VITE_API_URL || "";
 async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
@@ -9,6 +10,11 @@ async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
   return response.json() as Promise<T>;
 }
 export const api = {
+  analysis: (query: URLSearchParams, signal?: AbortSignal) =>
+    Promise.all([
+      get<Data>(`/analysis/returns?${query}`, signal),
+      get<Correlation>(`/analysis/correlations?${query}`, signal),
+    ]),
   companies: (sector: string, signal?: AbortSignal) =>
     get<Company[]>(
       `/companies${sector ? `?sector=${encodeURIComponent(sector)}` : ""}`,
