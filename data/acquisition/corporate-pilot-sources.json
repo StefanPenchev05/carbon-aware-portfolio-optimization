@@ -79,5 +79,10 @@
       "role": "Shell 2024 report availability 25 March 2025"
     }
   ],
-  "retention": "Original documents, extracted numerical observations and per-cell evidence remain local/private. This public index contains source references and checksums, not a reusable financial dataset. No Bloomberg exports or credentials acquired."
+  "retention": "Original documents, extracted numerical observations and per-cell evidence remain local/private. This public index contains source references and checksums, not a reusable financial dataset. No Bloomberg exports or credentials acquired.",
+  "reviewed_evidence": {
+    "local_path": "data/private/siemens_pilot_v1/extraction-validation-reviewed.json",
+    "sha256": "82d94e282d332a4dff576f3cb1ef4f453237bc7dc14534d4eaa4061ce36fbe12",
+    "note": "Corrects fiscal-year column labels for four AGM cells; actual dates/prices and immutable import bundle unchanged. Original evidence retained for audit."
+  }
 }
