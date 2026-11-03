@@ -27,3 +27,7 @@ CLI success audit rows commit with data; validation failures record rolled-back 
 
 
 Task 03 reused all existing models, CLI ingestion and APIs unchanged. A private, hashed Siemens bundle adds sparse real closes and annual disclosures; `scripts/validate_corporate_pilot.py` compares its local CSVs with live API responses and calls the existing returns/alignment services. The older smoke scripts now isolate demo assertions by source.synthetic rather than assuming the whole database is synthetic. Source/rights references, counts and checksums are public; original PDFs/HTML and derived financial observations remain in ignored data/private. No duplicate importer or migration was introduced.
+
+## Task 05 portfolio boundary
+
+`schemas/portfolio.py` defines typed research requests/results. `repositories/portfolio.py` retrieves a mode-isolated observation universe and local review attestations; `portfolio_data.py` reuses existing financial and publication-alignment services to prepare one common estimation matrix. Pure `portfolio.py` validates/estimates numerical inputs and solves the fixed-sleeve convex model with CVXPY/Clarabel. `portfolio_experiment.py` holds estimates/constraints fixed across comparisons and sensitivity. Thin `api/portfolio.py` exposes stateless GET/POST endpoints; no persistence model or migration is added. The Portfolio React component and typed HTTP client render actual solver results. Seeded synthetic observations live separately under data/synthetic and are generated in memory without DB writes. See portfolio-optimization.md.

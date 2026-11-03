@@ -1,3 +1,4 @@
+import { Portfolio } from "./components/Portfolio";
 import { Analysis } from "./components/Analysis";
 import { useEffect, useState } from "react";
 import { api } from "./services/api";
@@ -70,8 +71,16 @@ export default function App() {
           >
             Analysis
           </button>
+          <button
+            aria-pressed={page === "portfolio"}
+            onClick={() => setPage("portfolio")}
+          >
+            Portfolio
+          </button>
         </nav>
-        {page === "analysis" ? (
+        {page === "portfolio" ? (
+          <Portfolio />
+        ) : page === "analysis" ? (
           <Analysis />
         ) : (
           <>

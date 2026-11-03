@@ -4,7 +4,7 @@ University of Luxembourg · Bachelor Semester Project · Winter 2026/2027
 
 This research platform will investigate relationships between corporate emissions and financial performance across Energy, Industrials and Pharmaceuticals in a selected STOXX Europe 600 universe. Research questions include whether these relationships differ by sector and how a carbon penalty changes a Long-Short portfolio's risk, return and exposure.
 
-Milestone 1 provides a Company Explorer, provenance-aware CSV ingestion, data coverage API and PostgreSQL foundation. Correlation, optimization and historical evaluation are future work. Company/price/emissions samples remain **synthetic**, not actual constituents or historical disclosures. Task 02 adds real ECB FX reference data and research-quality import/preparation infrastructure. Task 03 adds a private Siemens pilot: one real company, seven sparse unadjusted Xetra closes and two Scope 1/2 reporting years; full daily return history remains unavailable. This is academic software, not investment advice.
+Milestone 1 provides a Company Explorer, provenance-aware CSV ingestion, data coverage API and PostgreSQL foundation. Tasks 04–05 add exploratory analysis and fixed-sleeve portfolio optimization; historical evaluation remains future work. Company/price/emissions samples remain **synthetic**, not actual constituents or historical disclosures. Task 02 adds real ECB FX reference data and research-quality import/preparation infrastructure. Task 03 adds a private Siemens pilot: one real company, seven sparse unadjusted Xetra closes and two Scope 1/2 reporting years; full daily return history remains unavailable. This is academic software, not investment advice.
 
 ## Architecture and files
 
@@ -95,7 +95,7 @@ GET `/api/companies?sector=Energy`, `/api/companies/{id}`, `/api/companies/{id}/
 
 Phase 2: point-in-time returns/emissions alignment, correlation and sector comparisons. Phase 3: traditional and carbon-aware Long-Short optimization. Phase 4: interactive portfolio dashboard. Phase 5: historical evaluation. See `docs/roadmap.md` and `docs/assumptions.md` before methodological implementation.
 
-No real security prices, corporate emissions, constituent membership or correlations have been acquired or verified. ECB FX reuse conditions were checked and a real attributed FX bundle is included. Tiny samples test software behavior only and cannot support research conclusions. Authentication, backtesting and production deployment are outside this milestone. Git is initialized locally; creating a GitHub remote is left to the project owner.
+The private Siemens pilot contains sparse real prices, annual emissions and one dated membership snapshot; no genuine corporate correlation or portfolio result is supported. ECB FX reuse conditions were checked and a real attributed FX bundle is included. Tiny samples test software behavior only and cannot support research conclusions. Authentication, backtesting and production deployment are outside this milestone. Git is initialized locally; creating a GitHub remote is left to the project owner.
 
 
 ## Task 02 — real-data acquisition and preparation
@@ -130,3 +130,12 @@ The private source/CSV bundle is present locally under ignored `data/private/sie
 Open **Analysis** beside Explorer. Real data is the default; Siemens correctly shows “Insufficient verified corporate observations for statistical analysis.” No corporate correlation is fabricated. Read-only endpoints: `/api/analysis/readiness`, `/api/analysis/returns`, `/api/analysis/correlations`, `/api/analysis/sectors`; e.g. `?start_year=2024&end_year=2024`. Panel summaries require `mode=panel`; full typed filters/responses are in `/docs`.
 
 See [statistical methodology](docs/statistical-methodology.md) for return/volatility formulas, publication-aware annual pairing, carbon comparability, configurable thresholds, withheld significance, tests and optional local analyst review configuration. No review file is approved by default. Original/private acquired data is unchanged. Rebuild backend after updating dependencies: `docker compose up --build -d backend`.
+
+
+### Long–Short portfolio research (Task 05)
+
+Open **Portfolio**. Real mode correctly blocks the insufficient Siemens dataset. Select **SYNTHETIC demonstration** to compare traditional and carbon-aware fixed-sleeve portfolios and run carbon-penalty sensitivity. Every chart uses backend computations and is labelled by dataset mode. Synthetic observations remain separate from PostgreSQL and real/private records.
+
+The convex model maximizes annual estimated return minus γ × annual variance minus λ × long-book relative carbon exposure. Short emissions never cancel long-book emissions. Controls cover selected companies, automatic/manual sleeves, dates, risk/carbon parameters, caps and gross allocations. These are in-sample estimates, not backtests or investment recommendations.
+
+New endpoints: GET `/api/portfolio/readiness`; POST `/api/portfolio/optimize`, `/compare`, `/sensitivity`. See [portfolio methodology](docs/portfolio-optimization.md) for formulas, units, numerical checks, synthetic examples, API contracts and optional local analyst reviews. Rebuild with `docker compose up --build -d backend`; validate with `python3 scripts/smoke_portfolio.py`. No observation schema/migration or new corporate acquisition was required.

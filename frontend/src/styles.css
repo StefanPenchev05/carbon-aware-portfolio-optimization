@@ -256,3 +256,75 @@ section[aria-label="Statistical analysis"] article {
   margin-bottom: 1.5rem;
   overflow-x: auto;
 }
+
+.portfolio-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 310px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.portfolio-layout aside {
+  border: 1px solid #dce4ed;
+  border-radius: 8px;
+}
+.portfolio-layout input:not([type="checkbox"]) {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid #adbdcc;
+  border-radius: 4px;
+  font: inherit;
+  color: inherit;
+}
+.portfolio-layout label {
+  font-size: 13px;
+  margin: 12px 0;
+}
+.portfolio-layout label input,
+.portfolio-layout label select {
+  margin-top: 5px;
+}
+.portfolio-company input[type="checkbox"] {
+  margin-right: 8px;
+}
+.portfolio-company label {
+  font-size: 12px;
+  font-weight: 500;
+}
+.portfolio-layout fieldset {
+  border: 1px solid #adbdcc;
+  padding: 8px;
+  min-width: 0;
+}
+.portfolio-results {
+  min-width: 0;
+}
+.portfolio-results article {
+  background: white;
+  border: 1px solid #dce4ed;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+.dataset-label {
+  color: #173652;
+  font-weight: 700;
+}
+.run-portfolio {
+  font: inherit;
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 4px;
+  background: #285ca8;
+  color: white;
+  cursor: pointer;
+}
+.run-portfolio:disabled {
+  background: #607287;
+  cursor: not-allowed;
+}
+@media (max-width: 960px) {
+  .portfolio-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
