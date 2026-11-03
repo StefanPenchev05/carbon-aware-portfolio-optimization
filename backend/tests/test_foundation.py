@@ -109,3 +109,24 @@ def test_api(client):
 )
 def test_api_errors(client, path, status):
     assert client.get(path).status_code == status
+
+
+def test_membership_import(seeded, tmp_path):
+    path = tmp_path / "memberships.csv"
+    path.write_text("isin,index_name,as_of\nZZ0000000001,Synthetic test index,2025-01-01\n")
+    assert import_csv(seeded, "memberships", path, **META)["inserted"] == 1
+    assert import_csv(seeded, "memberships", path, **META)["skipped"] == 1
+
+
+def test_rollback_partial_file(seeded, tmp_path):
+    from app.models.entities import StockPrice
+
+    seeded.rollback()
+    path = tmp_path / "partial.csv"
+    path.write_text("isin,date,close,currency\nZZ0000000001,2025-02-03,100,EUR\nZZ0000000099,2025-02-03,100,EUR\n")
+    with pytest.raises(ImportError):
+        with seeded.begin():
+            import_csv(seeded, "prices", path, **META)
+    assert not seeded.scalars(
+        select(StockPrice).where(StockPrice.date == __import__("datetime").date(2025, 2, 3))
+    ).all()

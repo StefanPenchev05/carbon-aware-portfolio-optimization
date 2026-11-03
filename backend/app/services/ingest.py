@@ -5,15 +5,17 @@ from pathlib import Path
 
 import pandas as pd
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.core.database import SessionLocal
-from app.models.entities import CarbonEmission, Company, Source, StockPrice
-from app.schemas.data import CompanyCSV, EmissionCSV, PriceCSV
+from app.models.entities import CarbonEmission, Company, IndexMembership, Source, StockPrice
+from app.schemas.data import CompanyCSV, EmissionCSV, MembershipCSV, PriceCSV
 
 FORMATS = {
     "companies": (CompanyCSV, Company),
     "prices": (PriceCSV, StockPrice),
     "emissions": (EmissionCSV, CarbonEmission),
+    "memberships": (MembershipCSV, IndexMembership),
 }
 
 
@@ -66,7 +68,12 @@ def import_csv(db, kind, path, *, source_name, reference, synthetic, notes=""):
                 raise ImportError(f"{path}, row {number}: unknown ISIN {isin}; import companies first")
             row["company_id"] = company.id
             key = {"company_id": company.id, "source_id": source.id}
-            key.update({k: row[k] for k in (["date"] if kind == "prices" else ["year", "methodology", "units"])})
+            fields = {
+                "prices": ["date"],
+                "emissions": ["year", "methodology", "units"],
+                "memberships": ["index_name", "as_of"],
+            }
+            key.update({k: row[k] for k in fields[kind]})
         row["source_id"] = source.id
         existing = db.scalar(select(model).filter_by(**key))
         if existing:
@@ -103,6 +110,11 @@ def main():
                 notes=args.notes,
             )
         print(result)
+    except SQLAlchemyError:
+        parser.exit(
+            1,
+            "Import failed: database operation failed; transaction rolled back. Check connectivity and constraints.\n",
+        )
     except (ValueError, OSError) as exc:
         parser.exit(1, f"Import failed: {exc}\n")
 

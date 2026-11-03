@@ -1,3 +1,4 @@
+import re
 from datetime import date, datetime
 from typing import Annotated, Literal
 
@@ -36,7 +37,11 @@ class PriceCSV(BaseModel):
     @field_validator("date", mode="before")
     @classmethod
     def iso_date(cls, value):
-        return date.fromisoformat(value) if isinstance(value, str) else value
+        if isinstance(value, str):
+            if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+                raise ValueError("Use YYYY-MM-DD dates")
+            return date.fromisoformat(value)
+        return value
 
 
 class EmissionCSV(BaseModel):
@@ -80,3 +85,14 @@ class CoverageOut(BaseModel):
     price_count: int
     emission_count: int
     has_reported_scopes: bool
+
+
+class MembershipCSV(BaseModel):
+    isin: str
+    index_name: Annotated[str, Field(min_length=1, max_length=100)]
+    as_of: date
+
+    @field_validator("as_of", mode="before")
+    @classmethod
+    def iso_date(cls, value):
+        return PriceCSV.iso_date(value)

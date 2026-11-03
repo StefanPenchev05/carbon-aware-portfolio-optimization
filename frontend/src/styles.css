@@ -1,1 +1,220 @@
-:root{font-family:"Avenir Next",Avenir,"Segoe UI",sans-serif;color:#24374c;background:#f3f6fa;font-synthesis:none;line-height:1.5}*{box-sizing:border-box}body{margin:0}header{background:#173652;color:white;padding:24px 4%;display:flex;justify-content:space-between;gap:16px;align-items:center}.brand{font-size:21px;font-weight:700}header span{font-size:13px;color:#cbdce9}main{max-width:1440px;margin:auto;padding:36px 4%}.intro{margin-bottom:28px}h1{font-size:36px;letter-spacing:-1px;margin:0 0 6px}h2{font-size:23px;margin:0 0 10px}h3{font-size:15px;font-weight:600}p{margin:6px 0 16px;max-width:78ch}.workspace{display:grid;grid-template-columns:280px minmax(0,1fr);background:white;border:1px solid #dce4ed;border-radius:8px;overflow:hidden}aside{padding:24px;background:#edf3f8;border-right:1px solid #dce4ed}label{display:block;font-weight:600;margin-bottom:8px}select{width:100%;font:inherit;padding:10px;border:1px solid #adbdcc;border-radius:4px;background:white;color:inherit}.count{font-size:13px;margin:20px 0 10px;color:#576b7e}nav button{display:block;text-align:left;width:100%;font:inherit;border:1px solid transparent;border-radius:5px;padding:14px 12px;margin:6px 0;background:transparent;cursor:pointer;color:inherit}nav button strong,nav button span{display:block}nav button span{font-size:12px;margin-top:6px;color:#536b7d}nav button[aria-pressed=true]{background:white;border-color:#8da8c2;box-shadow:inset 3px 0 #285ca8}button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #167d8d;outline-offset:3px}article{min-width:0;padding:30px}.company{padding-bottom:18px;border-bottom:1px solid #dce4ed}section{padding-top:28px;margin-top:12px}.chart{height:260px;margin:18px 0}section>p,.company>p{color:#536b7d}.provenance{font-size:12px;overflow-wrap:anywhere;color:#536b7d}.provenance strong{color:#795a13;background:#fcf3d8;padding:2px 5px;border-radius:3px}.empty{background:#f0f5f8;padding:22px;border-left:3px solid #699bb2}table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #e1e8ee}th{color:#536b7d}summary{cursor:pointer}.error{padding:16px;background:#fff0ee;color:#9a3025}footer{max-width:1440px;margin:auto;padding:0 4% 30px;font-size:12px;color:#536b7d}@media(max-width:760px){header{align-items:flex-start;flex-direction:column}.workspace{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid #dce4ed}nav{display:flex;overflow-x:auto;gap:8px}nav button{min-width:210px}article{padding:20px}h1{font-size:30px}table{font-size:11px}th,td{padding:8px 4px}}
+:root {
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  color: #24374c;
+  background: #f3f6fa;
+  font-synthesis: none;
+  line-height: 1.5;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+header {
+  background: #173652;
+  color: white;
+  padding: 24px 4%;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+.brand {
+  font-size: 21px;
+  font-weight: 700;
+}
+header span {
+  font-size: 13px;
+  color: #cbdce9;
+}
+main {
+  max-width: 1440px;
+  margin: auto;
+  padding: 36px 4%;
+}
+.intro {
+  margin-bottom: 28px;
+}
+h1 {
+  font-size: 36px;
+  letter-spacing: -1px;
+  margin: 0 0 6px;
+}
+h2 {
+  font-size: 23px;
+  margin: 0 0 10px;
+}
+h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+p {
+  margin: 6px 0 16px;
+  max-width: 78ch;
+}
+.workspace {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  background: white;
+  border: 1px solid #dce4ed;
+  border-radius: 8px;
+  overflow: hidden;
+}
+aside {
+  padding: 24px;
+  background: #edf3f8;
+  border-right: 1px solid #dce4ed;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+select {
+  width: 100%;
+  font: inherit;
+  padding: 10px;
+  border: 1px solid #adbdcc;
+  border-radius: 4px;
+  background: white;
+  color: inherit;
+}
+.count {
+  font-size: 13px;
+  margin: 20px 0 10px;
+  color: #576b7e;
+}
+nav button {
+  display: block;
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 14px 12px;
+  margin: 6px 0;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+nav button strong,
+nav button span {
+  display: block;
+}
+nav button span {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #536b7d;
+}
+nav button[aria-pressed="true"] {
+  background: white;
+  border-color: #8da8c2;
+  box-shadow: inset 3px 0 #285ca8;
+}
+button:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #167d8d;
+  outline-offset: 3px;
+}
+article {
+  min-width: 0;
+  padding: 30px;
+}
+.company {
+  padding-bottom: 18px;
+  border-bottom: 1px solid #dce4ed;
+}
+section {
+  padding-top: 28px;
+  margin-top: 12px;
+}
+.chart {
+  height: 260px;
+  margin: 18px 0;
+}
+section > p,
+.company > p {
+  color: #536b7d;
+}
+.provenance {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  color: #536b7d;
+}
+.provenance strong {
+  color: #795a13;
+  background: #fcf3d8;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+.empty {
+  background: #f0f5f8;
+  padding: 22px;
+  border-left: 3px solid #699bb2;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0;
+}
+th,
+td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid #e1e8ee;
+}
+th {
+  color: #536b7d;
+}
+summary {
+  cursor: pointer;
+}
+.error {
+  padding: 16px;
+  background: #fff0ee;
+  color: #9a3025;
+}
+footer {
+  max-width: 1440px;
+  margin: auto;
+  padding: 0 4% 30px;
+  font-size: 12px;
+  color: #536b7d;
+}
+@media (max-width: 760px) {
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+  aside {
+    border-right: 0;
+    border-bottom: 1px solid #dce4ed;
+  }
+  nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+  }
+  nav button {
+    min-width: 210px;
+  }
+  article {
+    padding: 20px;
+  }
+  h1 {
+    font-size: 30px;
+  }
+  table {
+    font-size: 11px;
+  }
+  th,
+  td {
+    padding: 8px 4px;
+  }
+}
