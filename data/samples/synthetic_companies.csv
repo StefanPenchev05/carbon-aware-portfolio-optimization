@@ -1,0 +1,4 @@
+name,isin,ticker,exchange,sector,currency
+Synthetic Energy Labs,ZZ0000000001,SEN,XTEST,Energy,EUR
+Synthetic Industrial Works,ZZ0000000002,SIW,XTEST,Industrials,EUR
+Synthetic Pharma Research,ZZ0000000003,SPR,XTEST,Pharmaceuticals,EUR

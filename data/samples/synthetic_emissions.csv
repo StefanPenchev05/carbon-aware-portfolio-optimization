@@ -1,0 +1,4 @@
+isin,year,scope1,scope2,scope3,units,methodology,notes
+ZZ0000000001,2023,1200,400,,tCO2e,synthetic location-based,Scope 3 unavailable; fabricated demonstration
+ZZ0000000001,2024,1100,380,5000,tCO2e,synthetic location-based,Fabricated demonstration
+ZZ0000000002,2024,200,100,,tCO2e,synthetic location-based,Scope 3 unavailable; fabricated demonstration
