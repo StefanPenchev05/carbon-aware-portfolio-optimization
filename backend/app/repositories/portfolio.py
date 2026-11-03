@@ -13,7 +13,7 @@ from app.services.portfolio import PortfolioError
 from app.services.synthetic_portfolio import dataset
 
 
-def load_dataset(db, mode):
+def load_dataset(db, mode, *, load_reviews=True):
     if mode == "synthetic":
         return dataset()
     sources = {s.id: s for s in db.scalars(select(Source).where(Source.synthetic.is_(False)))}
@@ -29,7 +29,7 @@ def load_dataset(db, mode):
             if r.company_id in ids and r.source_id in sources
         ]
 
-    path = os.environ.get("PORTFOLIO_REVIEW_FILE")
+    path = os.environ.get("PORTFOLIO_REVIEW_FILE") if load_reviews else None
     try:
         raw = json.loads(Path(path).read_text()).get("real", {}) if path else {}
         reviews = {key: PortfolioReview.model_validate(value).model_dump(mode="json") for key, value in raw.items()}
