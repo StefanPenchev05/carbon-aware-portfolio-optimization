@@ -1,0 +1,83 @@
+{
+  "task": "03",
+  "retrieved_at": "2026-11-03T16:00:34.808370+00:00",
+  "private_bundle": "data/private/siemens_pilot_v1",
+  "manifest_sha256": "79c212be2c2bdc4299f70c80e3a148747ced50d98c292a5a043bff5d86321afb",
+  "membership": {
+    "source": "https://stoxx.com/index/SXXP/?factsheet=true",
+    "as_of": "2026-09-30",
+    "locator": "Top 10 Components; footnote 4",
+    "verified_names": [
+      "SHELL",
+      "SIEMENS",
+      "NOVARTIS"
+    ],
+    "identifiers": "Composition names matched to issuer ordinary-share identity records; factsheet itself is not an ISIN export."
+  },
+  "imported": {
+    "company": "Siemens AG",
+    "isin": "DE0007236101",
+    "companies": 1,
+    "memberships": 1,
+    "prices": 7,
+    "adjusted_prices": 0,
+    "emissions": 2,
+    "emission_years": [
+      2023,
+      2024
+    ],
+    "scopes": [
+      "Scope 1",
+      "Scope 2 market-based"
+    ]
+  },
+  "sources": [
+    {
+      "url": "https://www.siemens.com/en-us/company/investor-relations/share-bonds-rating/basic-data-key-share-figures/",
+      "role": "Siemens identity and sparse historical issuer-published Xetra closing prices",
+      "local_snapshot": "data/private/siemens_pilot_v1/sources/siemens-share-data.html",
+      "sha256": "96f1334b36a35758ed2185523ad10daef805cb5ae4c7bc50824e95afc0c23dde"
+    },
+    {
+      "url": "https://assets.new.siemens.com/siemens/assets/api/uuid:32a7154d-edba-47bc-8e9b-9761617ba774/sustainability-report.pdf",
+      "role": "Siemens 2024 Sustainability Report p67 table and pp136-137 methodology",
+      "local_snapshot": "data/private/siemens_pilot_v1/sources/siemens-sustainability-report-2024.pdf",
+      "sha256": "043285e4a589c2831e29276e9e0aaea582269ca87a747f1ae22fdfbc445a813f"
+    },
+    {
+      "url": "https://press.siemens.com/global/en/pressrelease/siemens-achieves-strong-progress-sustainability-targets",
+      "role": "Dated availability evidence: 5 December 2024"
+    },
+    {
+      "url": "https://stoxx.com/index/SXXP/?factsheet=true",
+      "role": "Dated official composition; not historical membership for 2022-2025",
+      "sha256": "c054002eb8f0bad32f5ec985acde7f8cd7b2dc8c73197f7f087cdf640ef92c74"
+    },
+    {
+      "url": "https://www.siemens.com/global/en/general/terms-of-use.html",
+      "role": "Own-purpose intended-use terms; no third-party redistribution licence",
+      "sha256": "21cc208a58252ac6d4f00289c7bf59d6beaaba98176a3ef2a81bda1e506c29f8"
+    },
+    {
+      "url": "https://shell.gcs-web.com/news-releases/news-release-details/shell-sets-out-expected-timetable-simplification",
+      "role": "Shell ordinary-share identifiers and 2022 transition"
+    },
+    {
+      "url": "https://www.novartis.com/investors/share-data-and-analysis/share-overview",
+      "role": "Novartis ordinary share versus ADR identities"
+    },
+    {
+      "url": "https://www.novartis.com/sites/novartiscom/files/novartis-integrated-report-2024.pdf",
+      "role": "Candidate Novartis source; pp3,28,61 reviewed, not imported"
+    },
+    {
+      "url": "https://www.novartis.com/news/media-releases/novartis-continues-strong-momentum-sales-growth-margin-expansion-reaches-key-innovation-milestones-2024",
+      "role": "Novartis report availability 31 January 2025"
+    },
+    {
+      "url": "https://www.shell.com/news-and-insights/newsroom/news-and-media-releases/2025/shell-plc-publishes-2024-annual-report-and-accounts.html",
+      "role": "Shell 2024 report availability 25 March 2025"
+    }
+  ],
+  "retention": "Original documents, extracted numerical observations and per-cell evidence remain local/private. This public index contains source references and checksums, not a reusable financial dataset. No Bloomberg exports or credentials acquired."
+}

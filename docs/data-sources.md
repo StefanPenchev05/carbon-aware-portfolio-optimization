@@ -1,5 +1,6 @@
 # Real-data source review — 3 November 2026
 
+> Historical Task 02 snapshot. Task 03 has now acquired a private Siemens corporate pilot; see [current acquisition results](corporate-pilot.md). The older zero-company counts below describe the earlier run.
 Only official provider pages were used for the access review. Access to a public web page is not treated as permission to harvest or redistribute a database. No accounts, licences or access requests were created or sent.
 
 | Source | Confirmed information / decision |

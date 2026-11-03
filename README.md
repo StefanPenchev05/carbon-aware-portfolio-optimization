@@ -4,7 +4,7 @@ University of Luxembourg · Bachelor Semester Project · Winter 2026/2027
 
 This research platform will investigate relationships between corporate emissions and financial performance across Energy, Industrials and Pharmaceuticals in a selected STOXX Europe 600 universe. Research questions include whether these relationships differ by sector and how a carbon penalty changes a Long-Short portfolio's risk, return and exposure.
 
-Milestone 1 provides a Company Explorer, provenance-aware CSV ingestion, data coverage API and PostgreSQL foundation. Correlation, optimization and historical evaluation are future work. Company/price/emissions samples remain **synthetic**, not actual constituents or historical disclosures. Task 02 adds real ECB FX reference data and research-quality import/preparation infrastructure; no verified real corporate panel has been acquired. This is academic software, not investment advice.
+Milestone 1 provides a Company Explorer, provenance-aware CSV ingestion, data coverage API and PostgreSQL foundation. Correlation, optimization and historical evaluation are future work. Company/price/emissions samples remain **synthetic**, not actual constituents or historical disclosures. Task 02 adds real ECB FX reference data and research-quality import/preparation infrastructure. Task 03 adds a private Siemens pilot: one real company, seven sparse unadjusted Xetra closes and two Scope 1/2 reporting years; full daily return history remains unavailable. This is academic software, not investment advice.
 
 ## Architecture and files
 
@@ -116,4 +116,11 @@ New API: `/api/data/quality` (real by default) and `?synthetic=true` (demo). Exi
 
 Preparation helpers provide daily simple/log returns, gap/duplicate checks, original-preserving emissions normalization, and descriptive versus point-in-time alignment. No statistical analysis is implemented. Real CSV imports require a manifest and exact ISIN matching/checksum; units, currency, unknown dates and methodology differences remain explicit. Header-only templates are in `data/templates/`; restricted exports belong in ignored `data/private/`.
 
-After loading both documented datasets, run `python3 scripts/smoke.py` and `python3 scripts/smoke_research.py` for live API/PostgreSQL regression checks. These scripts expect the exact demo-plus-ECB state. Vite may select the next port if 5173 is occupied; use the URL printed at startup (the Task 02 browser check used 5174).
+After loading both documented datasets, run `python3 scripts/smoke.py` and `python3 scripts/smoke_research.py` for live API/PostgreSQL regression checks. These scripts validate the fixed synthetic demo and ECB bundle while allowing separately sourced corporate observations. Vite may select the next port if 5173 is occupied; use the URL printed at startup (the Task 02 browser check used 5174).
+
+
+## Task 03 — first corporate observations
+
+See [corporate pilot](docs/corporate-pilot.md) for exact sources, verified 2026-09-30 membership, identity/share-class decisions, private replay commands, validation counts and the Bloomberg export checklist. The live Explorer now includes Siemens AG alongside explicitly synthetic examples. Original/normalized emissions are separate, the report's estimation/extrapolation limitations are retained, and sparse prices do not generate daily returns. No migration or replacement ingestion framework was needed.
+
+The private source/CSV bundle is present locally under ignored `data/private/siemens_pilot_v1/`; it is deliberately absent from public Git. Only source references/checksums/coverage are in `data/acquisition/`. Replay locally with the commands in the pilot document. **Not ready for correlation analysis:** daily adjusted prices and enough comparable annual disclosures are still required. The user confirmed Bloomberg export permission remains unconfirmed.

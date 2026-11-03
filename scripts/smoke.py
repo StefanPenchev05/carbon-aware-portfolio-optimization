@@ -1,4 +1,5 @@
 """Read-only HTTP smoke checks against the documented synthetic demo deployment."""
+
 import json
 from urllib.error import HTTPError
 from urllib.request import urlopen
@@ -12,11 +13,12 @@ def get(path):
 
 
 assert get("/api/health")["database"] == "connected"
-companies = get("/api/companies")
+all_companies = get("/api/companies")
+companies = [c for c in all_companies if c["source"]["synthetic"]]
 assert len(companies) == 3
 assert all(c["source"]["synthetic"] for c in companies)
 for sector in ("Energy", "Industrials", "Pharmaceuticals"):
-    rows = get("/api/companies?sector=" + sector)
+    rows = [c for c in get("/api/companies?sector=" + sector) if c["source"]["synthetic"]]
     assert len(rows) == 1 and rows[0]["sector"] == sector
 for company in companies:
     company_id = company["id"]
@@ -36,7 +38,8 @@ for path, expected in (("/api/companies/999999", 404), ("/api/companies/1/prices
         raise AssertionError("Expected HTTP error")
     except HTTPError as exc:
         assert exc.code == expected
-coverage = get("/api/data/coverage")
+demo_ids = {c["id"] for c in companies}
+coverage = [c for c in get("/api/data/coverage") if c["company_id"] in demo_ids]
 assert sum(c["price_count"] for c in coverage) == 7
 assert sum(c["emission_count"] for c in coverage) == 3
 assert get("/openapi.json")["info"]["version"] == "0.1.0"

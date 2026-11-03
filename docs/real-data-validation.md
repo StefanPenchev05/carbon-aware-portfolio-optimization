@@ -1,5 +1,6 @@
 # Task 02: real-data validation and acquisition blockers
 
+> Historical Task 02 snapshot. Task 03 has now acquired a private Siemens corporate pilot; see [current acquisition results](corporate-pilot.md). The older zero-company counts below describe the earlier run.
 Review/acquisition date: **3 November 2026**. Infrastructure is delivered; a validated corporate correlation dataset is **not ready**.
 
 ## Sources and permissions
