@@ -62,6 +62,7 @@ p {
   overflow: hidden;
 }
 aside {
+  min-width: 0;
   padding: 24px;
   background: #edf3f8;
   border-right: 1px solid #dce4ed;
@@ -190,7 +191,7 @@ footer {
     flex-direction: column;
   }
   .workspace {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   aside {
     border-right: 0;

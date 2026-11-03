@@ -1,0 +1,41 @@
+{
+  "synthetic": false,
+  "company_count": 0,
+  "companies_by_sector": {
+    "Energy": 0,
+    "Industrials": 0,
+    "Pharmaceuticals": 0
+  },
+  "companies_with_prices": 0,
+  "companies_with_emissions": 0,
+  "price_observations": 0,
+  "emission_observations": 0,
+  "currency_distribution": {},
+  "missing_scope_values": {},
+  "available_scopes": [],
+  "reporting_years": [],
+  "scope_status_counts": {},
+  "estimated_percent": null,
+  "reported_percent": null,
+  "missing_publication_dates": 0,
+  "usable_matched_observations": 0,
+  "rejected_import_rows": 0,
+  "rejected_import_attempts": 0,
+  "fx_observations": 7690,
+  "fx_currency_distribution": {
+    "CHF": 1538,
+    "DKK": 1538,
+    "GBP": 1538,
+    "NOK": 1538,
+    "SEK": 1538
+  },
+  "fx_start": "2020-01-02",
+  "fx_end": "2025-12-31",
+  "companies": [],
+  "notes": [
+    "Status percentages count non-null scope cells, not companies; repeated Scope 2-basis disclosures can repeat Scope 1.",
+    "Matched counts are candidate return/disclosure pairs with any reported normalized scope; no claim of statistical readiness.",
+    "Without an exchange calendar, weekday sessions are provisional. Historical membership is not an eligibility filter yet.",
+    "Rejected rows count whole rolled-back CLI batches and repeat attempts; legacy imports have no audit records."
+  ]
+}

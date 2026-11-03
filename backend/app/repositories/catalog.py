@@ -17,6 +17,10 @@ def company(db, company_id):
 def serialize(db, record):
     data = {column.name: getattr(record, column.name) for column in record.__table__.columns}
     data["source"] = db.get(Source, record.source_id)
+    if isinstance(record, CarbonEmission):
+        from app.services.preparation import normalize_emissions
+
+        data = normalize_emissions(data)
     return data
 
 
@@ -31,12 +35,16 @@ def observations(db, model, company_id, start=None, end=None):
 
 
 def coverage(db):
+    from app.services.quality import data_quality
+
+    quality = {r["company_id"]: r for flag in (False, True) for r in data_quality(db, flag)["companies"]}
     result = []
     for item in companies(db):
         prices = observations(db, StockPrice, item.id)
         emissions = observations(db, CarbonEmission, item.id)
         result.append(
             dict(
+                quality=quality[item.id],
                 company_id=item.id,
                 name=item.name,
                 price_count=len(prices),

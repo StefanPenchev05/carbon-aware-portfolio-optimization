@@ -25,6 +25,18 @@ export function Provenance({ source }: { source: Source }) {
         Reference: {source.reference} · Imported{" "}
         {new Date(source.imported_at).toLocaleDateString()}
       </span>
+      {source.retrieved_at && (
+        <>
+          <br />
+          Retrieved {new Date(source.retrieved_at).toISOString()}
+        </>
+      )}
+      {source.license_reference && (
+        <>
+          <br />
+          Usage terms: {source.license_reference}
+        </>
+      )}
       {source.notes && (
         <>
           <br />
@@ -42,10 +54,13 @@ export function Observations({
   emissions: Emission[];
 }) {
   // Separate sources, currencies and methodologies; never connect incompatible series.
-  const priceGroups = group(prices, (p) => `${p.source.id} / ${p.currency}`);
+  const priceGroups = group(
+    prices,
+    (p) => `${p.source.id} / ${p.currency} / ${p.adjustment_method}`,
+  );
   const emissionGroups = group(
     emissions,
-    (e) => `${e.source.id} / ${e.units} / ${e.methodology}`,
+    (e) => `${e.source.id} / ${e.units} / ${e.methodology} / ${e.scope2_basis}`,
   );
   return (
     <>
@@ -77,6 +92,9 @@ export function Observations({
               </ResponsiveContainer>
             </div>
             <Provenance source={rows[0].source} />
+            <p className="provenance">
+              Adjustment metadata: {rows[0].adjustment_method ?? "unknown"}
+            </p>
             <details>
               <summary>Price observations</summary>
               <table>
@@ -102,7 +120,7 @@ export function Observations({
         ))}
       </section>
       <section>
-        <h2>Reported carbon emissions</h2>
+        <h2>Carbon emissions</h2>
         <p>Scopes remain separate. Missing disclosures are never zero.</p>
         {!emissions.length && (
           <p className="empty">
@@ -112,7 +130,8 @@ export function Observations({
         {[...emissionGroups].map(([key, rows]) => (
           <div key={key}>
             <h3>
-              {rows[0].units} · {rows[0].methodology}
+              {rows[0].units} · {rows[0].methodology} · Scope 2{" "}
+              {rows[0].scope2_basis ?? "unknown"}
             </h3>
             <div
               className="chart"
@@ -153,7 +172,11 @@ export function Observations({
                   <tr key={e.year}>
                     <td>{e.year}</td>
                     {[e.scope1, e.scope2, e.scope3].map((v, i) => (
-                      <td key={i}>{v?.toLocaleString() ?? "Unavailable"}</td>
+                      <td key={i}>
+                        {v === null
+                          ? "Unavailable"
+                          : `${v.toLocaleString()} (${[e.scope1_status, e.scope2_status, e.scope3_status][i] ?? "unknown"})`}
+                      </td>
                     ))}
                   </tr>
                 ))}
@@ -162,6 +185,16 @@ export function Observations({
             {rows.map((e) => (
               <p key={e.year} className="provenance">
                 {e.year}: {e.notes || "No quality notes supplied."}
+                <br />
+                {e.disclosure_date
+                  ? `Disclosure date: ${e.disclosure_date}`
+                  : "Publication date unavailable; excluded from point-in-time analysis."}
+                {e.disclosure_reference && (
+                  <>
+                    <br />
+                    Disclosure: {e.disclosure_reference}
+                  </>
+                )}
               </p>
             ))}
           </div>

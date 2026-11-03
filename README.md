@@ -4,7 +4,7 @@ University of Luxembourg · Bachelor Semester Project · Winter 2026/2027
 
 This research platform will investigate relationships between corporate emissions and financial performance across Energy, Industrials and Pharmaceuticals in a selected STOXX Europe 600 universe. Research questions include whether these relationships differ by sector and how a carbon penalty changes a Long-Short portfolio's risk, return and exposure.
 
-Milestone 1 provides a Company Explorer, provenance-aware CSV ingestion, data coverage API and PostgreSQL foundation. Correlation, optimization and historical evaluation are future work. All included observations and companies are **synthetic**, not actual constituents or historical disclosures. This is academic software, not investment advice.
+Milestone 1 provides a Company Explorer, provenance-aware CSV ingestion, data coverage API and PostgreSQL foundation. Correlation, optimization and historical evaluation are future work. Company/price/emissions samples remain **synthetic**, not actual constituents or historical disclosures. Task 02 adds real ECB FX reference data and research-quality import/preparation infrastructure; no verified real corporate panel has been acquired. This is academic software, not investment advice.
 
 ## Architecture and files
 
@@ -95,4 +95,25 @@ GET `/api/companies?sector=Energy`, `/api/companies/{id}`, `/api/companies/{id}/
 
 Phase 2: point-in-time returns/emissions alignment, correlation and sector comparisons. Phase 3: traditional and carbon-aware Long-Short optimization. Phase 4: interactive portfolio dashboard. Phase 5: historical evaluation. See `docs/roadmap.md` and `docs/assumptions.md` before methodological implementation.
 
-No real prices, emissions, constituent membership, correlations or licensing rights have been acquired or verified. Tiny samples test software behavior only and cannot support research conclusions. Authentication, backtesting and production deployment are outside this milestone. Git is initialized locally; creating a GitHub remote is left to the project owner.
+No real security prices, corporate emissions, constituent membership or correlations have been acquired or verified. ECB FX reuse conditions were checked and a real attributed FX bundle is included. Tiny samples test software behavior only and cannot support research conclusions. Authentication, backtesting and production deployment are outside this milestone. Git is initialized locally; creating a GitHub remote is left to the project owner.
+
+
+## Task 02 — real-data acquisition and preparation
+
+Read [real-data validation and blockers](docs/real-data-validation.md), [source review](docs/data-sources.md) and [manual-import instructions](docs/manual-data-import.md). **The corporate dataset is not ready for Phase 2B correlations.** No real company or disclosure was manufactured to reach the pilot target.
+
+Replay the acquired ECB snapshot with no provider connection:
+
+```sh
+docker compose up --build -d
+docker compose exec backend python -m app.services.ingest fx /data/real/ecb_2020_2025/real_fx.csv --manifest /data/real/ecb_2020_2025/manifest.json --real
+docker compose exec backend python -m app.services.quality
+```
+
+This imports 7,690 real GBP/CHF/DKK/SEK/NOK reference quotes for 2020–2025; repeated imports skip exact duplicates. Source: European Central Bank. Rates are foreign units per EUR, selected/reshaped from its XML feed without changing values; see the bundle manifest for attribution and terms. Existing sample-import commands remain valid.
+
+New API: `/api/data/quality` (real by default) and `?synthetic=true` (demo). Existing `/api/data/coverage` keeps the list response and adds per-company quality details. Company/emission/price responses add original classifications, disclosure dates, status/basis, adjustment metadata and source retrieval/terms. The Explorer shows unknown/estimated status and missing publication dates explicitly.
+
+Preparation helpers provide daily simple/log returns, gap/duplicate checks, original-preserving emissions normalization, and descriptive versus point-in-time alignment. No statistical analysis is implemented. Real CSV imports require a manifest and exact ISIN matching/checksum; units, currency, unknown dates and methodology differences remain explicit. Header-only templates are in `data/templates/`; restricted exports belong in ignored `data/private/`.
+
+After loading both documented datasets, run `python3 scripts/smoke.py` and `python3 scripts/smoke_research.py` for live API/PostgreSQL regression checks. These scripts expect the exact demo-plus-ECB state. Vite may select the next port if 5173 is occupied; use the URL printed at startup (the Task 02 browser check used 5174).

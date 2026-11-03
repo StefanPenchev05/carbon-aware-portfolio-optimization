@@ -12,3 +12,6 @@ dist/
 
 .playwright-cli/
 output/
+
+# Licensed/private source exports must remain local.
+data/private/

@@ -1,0 +1,15 @@
+{
+  "source_name": "ECB reference FX 5bab2cb66ef0",
+  "reference": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml",
+  "retrieved_at": "2026-11-03T14:52:56.499554+00:00",
+  "license_reference": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+  "usage_permission": "ECB information reuse with accurate reproduction, attribution and explicit notice of modifications.",
+  "synthetic": false,
+  "notes": "Source: European Central Bank. Selected dates/currencies reshaped from XML; values unchanged. Foreign currency units per EUR; reference rates, not execution prices.",
+  "files": {
+    "real_fx.csv": "5bab2cb66ef0b1cbedc9c81c23354cf912453b2a4581ae90b68d48dcca220515"
+  },
+  "raw_files": {
+    "ecb_reference_rates.xml": "e25f694c47efc95848866963b136520bc3c8e77e2589c8520ad06327dccc4696"
+  }
+}

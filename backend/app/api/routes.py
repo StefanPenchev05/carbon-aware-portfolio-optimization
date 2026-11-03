@@ -64,3 +64,10 @@ def emissions(
 @router.get("/data/coverage", response_model=list[CoverageOut])
 def coverage(db=Depends(get_db)):
     return catalog.coverage(db)
+
+
+@router.get("/data/quality")
+def quality(synthetic: bool = False, db=Depends(get_db)):
+    from app.services.quality import data_quality
+
+    return data_quality(db, synthetic)

@@ -118,6 +118,14 @@ export default function App() {
                   <p>
                     ISIN {selected.isin} · Ticker {selected.ticker}
                   </p>
+                  {selected.original_sector && (
+                    <p className="provenance">
+                      Original classification: {selected.original_sector} (
+                      {selected.classification_system ?? "taxonomy unavailable"}
+                      )<br />
+                      {selected.sector_mapping_notes}
+                    </p>
+                  )}
                   <Provenance source={selected.source} />
                 </div>
                 {data ? (

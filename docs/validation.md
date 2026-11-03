@@ -25,3 +25,6 @@ Reproduce unit checks with README commands; run `python3 scripts/smoke.py` from 
 Nonblocking warnings: Vite reports a 644 kB minified main bundle, largely charting; consider lazy-loaded chart views when the dashboard grows. Starlette currently warns that its httpx TestClient adapter is deprecated; tests pass. No real datasets, provider access, license permissions or scientific conclusions have been validated. Real dataset analysis requires resolving the methodological checklist first.
 
 A transient browser request failed while the API container was being rebuilt; reloading after startup succeeded. A missing favicon was fixed and the final page loaded without browser console errors. No essential check is blocked.
+
+
+Task 02 validation supersedes these Phase 1 counts: see [real-data validation](real-data-validation.md) for 51 backend tests, five frontend tests, PostgreSQL migration/replay checks and acquisition blockers.
