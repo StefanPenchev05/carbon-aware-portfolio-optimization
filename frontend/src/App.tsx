@@ -75,7 +75,10 @@ export default function App() {
                 <option key={s}>{s}</option>
               ))}
             </select>
-            <p className="count">{companies.length} companies</p>
+            <p className="count">
+              {companies.length}{" "}
+              {companies.length === 1 ? "company" : "companies"}
+            </p>
             <nav aria-label="Companies">
               {companies.map((c) => (
                 <button

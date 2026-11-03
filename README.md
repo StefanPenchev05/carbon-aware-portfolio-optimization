@@ -73,6 +73,7 @@ cd backend
 cd ../frontend
 npm test
 npm run build
+npm run format:check
 ```
 
 Python unit/API tests use isolated SQLite databases, with foreign keys enabled; the actual application uses PostgreSQL. See `docs/validation.md` for executed PostgreSQL migration and integration checks. `npm run build` includes strict TypeScript checking. Dependencies are captured in `frontend/package-lock.json` and `backend/requirements.lock`.

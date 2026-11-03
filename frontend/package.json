@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
-    "test": "vitest run"
+    "test": "vitest run",
+    "format:check": "prettier --check src vite.config.ts tsconfig.json package.json"
   },
   "dependencies": {
     "react": "^19.0.0",
