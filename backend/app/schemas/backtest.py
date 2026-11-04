@@ -1,4 +1,5 @@
 """Historical evaluation contracts. Estimates and subsequent P&L are separate."""
+
 from datetime import date
 from typing import Literal
 
@@ -16,25 +17,25 @@ class BacktestRequest(BaseModel):
     training_sessions: int = Field(126, ge=20, le=756)
     frequency: Literal["monthly", "quarterly"] = "monthly"
     risk_aversion: FiniteFloat = Field(3, ge=0, le=10000)
-    carbon_penalty: FiniteFloat = Field(.1, ge=0, le=10)
-    penalties: list[FiniteFloat] = Field(default_factory=lambda: [0,.05,.1,.25], min_length=1, max_length=6)
-    max_weight: FiniteFloat = Field(.25, gt=0, le=1)
-    long_gross: FiniteFloat = Field(.5, gt=0, le=2)
-    short_gross: FiniteFloat = Field(.5, gt=0, le=2)
+    carbon_penalty: FiniteFloat = Field(0.1, ge=0, le=10)
+    penalties: list[FiniteFloat] = Field(default_factory=lambda: [0, 0.05, 0.1, 0.25], min_length=1, max_length=6)
+    max_weight: FiniteFloat = Field(0.25, gt=0, le=1)
+    long_gross: FiniteFloat = Field(0.5, gt=0, le=2)
+    short_gross: FiniteFloat = Field(0.5, gt=0, le=2)
     company_ids: list[int] = Field(default_factory=list, max_length=40)
     sectors: list[Literal["Energy", "Industrials", "Pharmaceuticals"]] = Field(default_factory=list, max_length=3)
     min_assets: int = Field(4, ge=2, le=40)
     min_candidates: int = Field(2, ge=1, le=20)
     min_observations: int = Field(60, ge=20, le=756)
-    min_annual_observations: int = Field(252, ge=60, le=1000)
-    shrinkage: FiniteFloat = Field(.05, ge=0, le=1)
+    min_annual_observations: int = Field(252, ge=252, le=1000)
+    shrinkage: FiniteFloat = Field(0.05, ge=0, le=1)
     risk_free_rate: FiniteFloat | None = Field(0, gt=-1, le=1)
 
     @model_validator(mode="after")
     def coherent(self):
-        if not date(1900,1,1) <= self.start_date < self.end_date <= date(2199,12,31):
+        if not date(1900, 1, 1) <= self.start_date < self.end_date <= date(2199, 12, 31):
             raise ValueError("Require 1900 <= evaluation start < end <= 2199")
-        if (self.end_date-self.start_date).days > 1096:
+        if (self.end_date - self.start_date).days > 1096:
             raise ValueError("Prototype evaluation range is limited to three years")
         if self.training_sessions < self.min_observations:
             raise ValueError("Training sessions must meet min_observations")
@@ -66,8 +67,9 @@ class HistoryReviewFile(BaseModel):
     universe_kind: Literal["historical-index-membership", "documented-research-universe"]
     universe_reference: str = Field(min_length=8)
     membership_history_verified: bool = False
+    historical_classification_verified: bool = False
     membership_events: list[MembershipEvent]
-    reviews: dict[str,list[HistoricalReview]]
+    reviews: dict[str, list[HistoricalReview]]
 
 
 class BacktestReadiness(BaseModel):
@@ -80,7 +82,7 @@ class BacktestReadiness(BaseModel):
     adjusted_price_count: int
     scheduled_periods: int = 0
     decision_dates: list[date] = Field(default_factory=list)
-    exclusions: dict[str,int] = Field(default_factory=dict)
+    exclusions: dict[str, int] = Field(default_factory=dict)
 
 
 class DailyPnl(BaseModel):
@@ -117,13 +119,13 @@ class Rebalance(BaseModel):
     training_end: date
     holding_end: date
     eligible_ids: list[int]
-    exclusions: dict[str,str]
+    exclusions: dict[str, str]
     in_sample: Estimates
     target_portfolio: PortfolioResult
-    pretrade_weights: dict[int,float]
-    weight_changes: dict[int,float]
+    pretrade_weights: dict[int, float]
+    weight_changes: dict[int, float]
     turnover_l1: float
-    sector_allocations: dict[str,dict[str,float]]
+    sector_allocations: dict[str, dict[str, float]]
     realized_period_return: float
 
 
@@ -143,6 +145,7 @@ class StrategyHistory(BaseModel):
 
 
 class BacktestResponse(BaseModel):
+    reference_currency: str | None = None
     status: str
     message: str
     configuration: BacktestRequest

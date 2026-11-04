@@ -1,0 +1,18 @@
+{
+  "label": "SYNTHETIC historical reference recipe; not empirical market data",
+  "version": 1,
+  "seed": 20261106,
+  "generator": "backend/app/services/synthetic_history.py",
+  "history_start": "2022-01-03",
+  "history_end": "2025-12-31",
+  "calendar": "Simulated weekdays, not a real exchange calendar",
+  "companies": 8,
+  "id_range": [20001, 20008],
+  "regimes": ["2022–2023 rising/common-factor baseline", "2024 Jan–Aug falling higher-correlation market", "2024 Sep–2025 rising, changed covariance signs"],
+  "universe": "Predeclared synthetic research universe; not historical STOXX constituents",
+  "entry": {"company_id": 20008, "effective": "2024-07-01", "published": "2024-06-15"},
+  "exit": {"company_id": 20007, "effective": "2025-07-01", "published": "2025-06-15"},
+  "disclosure_dates": ["2022-03-01", "2023-04-03", "2024-07-15", "2025-08-15"],
+  "default_evaluation": {"start_date": "2024-01-02", "end_date": "2025-12-31", "training_sessions": 126, "frequency": "monthly"},
+  "notes": "Runtime histories and all evaluation results remain explicitly synthetic; never imported into PostgreSQL. No future-centered calibration or tuning. Missing-history, publication and ruin scenarios are isolated numerical tests."
+}

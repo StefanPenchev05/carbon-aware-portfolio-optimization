@@ -4,7 +4,7 @@ University of Luxembourg · Bachelor Semester Project · Winter 2026/2027
 
 This research platform will investigate relationships between corporate emissions and financial performance across Energy, Industrials and Pharmaceuticals in a selected STOXX Europe 600 universe. Research questions include whether these relationships differ by sector and how a carbon penalty changes a Long-Short portfolio's risk, return and exposure.
 
-Milestone 1 provides a Company Explorer, provenance-aware CSV ingestion, data coverage API and PostgreSQL foundation. Tasks 04–05 add exploratory analysis and fixed-sleeve portfolio optimization; historical evaluation remains future work. Company/price/emissions samples remain **synthetic**, not actual constituents or historical disclosures. Task 02 adds real ECB FX reference data and research-quality import/preparation infrastructure. Task 03 adds a private Siemens pilot: one real company, seven sparse unadjusted Xetra closes and two Scope 1/2 reporting years; full daily return history remains unavailable. This is academic software, not investment advice.
+Milestone 1 provides a Company Explorer, provenance-aware CSV ingestion, data coverage API and PostgreSQL foundation. Tasks 04–05 add exploratory analysis and fixed-sleeve portfolio optimization. Task 06 adds walk-forward evaluation with synthetic validation; genuine corporate evaluation remains data-blocked. Company/price/emissions samples remain **synthetic**, not actual constituents or historical disclosures. Task 02 adds real ECB FX reference data and research-quality import/preparation infrastructure. Task 03 adds a private Siemens pilot: one real company, seven sparse unadjusted Xetra closes and two Scope 1/2 reporting years; full daily return history remains unavailable. This is academic software, not investment advice.
 
 ## Architecture and files
 
@@ -139,3 +139,9 @@ Open **Portfolio**. Real mode correctly blocks the insufficient Siemens dataset.
 The convex model maximizes annual estimated return minus γ × annual variance minus λ × long-book relative carbon exposure. Short emissions never cancel long-book emissions. Controls cover selected companies, automatic/manual sleeves, dates, risk/carbon parameters, caps and gross allocations. These are in-sample estimates, not backtests or investment recommendations.
 
 New endpoints: GET `/api/portfolio/readiness`; POST `/api/portfolio/optimize`, `/compare`, `/sensitivity`. See [portfolio methodology](docs/portfolio-optimization.md) for formulas, units, numerical checks, synthetic examples, API contracts and optional local analyst reviews. Rebuild with `docker compose up --build -d backend`; validate with `python3 scripts/smoke_portfolio.py`. No observation schema/migration or new corporate acquisition was required.
+
+### Historical evaluation (Task 06)
+
+Open **Evaluation** for rolling/expanding walk-forward comparisons and carbon-penalty sensitivity. The existing optimizer is reused at each rebalance with past-only training, dated universe/disclosure eligibility, and the same inputs/constraints for all penalties. Subsequent signed-equity P&L uses explicitly documented zero-cost cash/notional accounting and drifting weights; it is separate from in-sample estimates. Every synthetic result is labelled, and current real Siemens evaluation remains unavailable.
+
+GET `/api/backtest/readiness`; POST `/api/backtest/run`, `/api/backtest/compare`. See [historical evaluation methodology](docs/historical-evaluation.md) for timing, accounting, metrics, real-data blockers, optional `BACKTEST_REVIEW_FILE` evidence and reproduction. After rebuilding the backend, run `python3 scripts/smoke_backtest.py`. No new corporate acquisition or observation migration was needed.

@@ -27,3 +27,7 @@ Implemented read-only financial/carbon/correlation services, typed analysis endp
 ## Task 05 — fixed-sleeve Long–Short optimization
 
 Implemented annual mean-variance optimization with CVXPY/Clarabel, a long-book relative carbon penalty, fixed-universe comparisons, penalty sensitivity, typed stateless API, Portfolio UI and deterministic eight-company synthetic validation. Real Siemens remains unavailable for optimization. See [portfolio methodology](portfolio-optimization.md). Next: permitted reviewed multi-asset daily histories, comparable publication-aware carbon disclosures and a formal evaluation protocol. Historical backtesting and trading remain unimplemented.
+
+## Task 06 — historical evaluation engine
+
+Implemented past-only rolling/expanding scheduling, monthly/quarterly decisions, dated historical-universe eligibility, optimizer reuse, self-financing signed P&L/drift, subsequent financial/carbon/turnover metrics, matched penalty comparisons, typed stateless API and Evaluation UI. Seeded historical scenarios are explicitly synthetic. Current real data cannot pass PIT/multi-asset readiness. See [historical evaluation](historical-evaluation.md). Next: permitted historical market/universe/disclosure evidence and independent validation/final-test protocols before empirical claims or penalty tuning.

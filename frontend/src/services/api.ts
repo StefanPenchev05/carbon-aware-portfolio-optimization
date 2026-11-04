@@ -1,4 +1,9 @@
 import type {
+  BacktestConfiguration,
+  BacktestReadiness,
+  BacktestResponse,
+} from "../types/backtest";
+import type {
   PortfolioConfiguration,
   PortfolioReadiness,
   PortfolioResponse,
@@ -15,6 +20,29 @@ async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
   return response.json() as Promise<T>;
 }
 export const api = {
+  evaluationReadiness: (mode: "real" | "synthetic", signal?: AbortSignal) =>
+    get<BacktestReadiness>(`/backtest/readiness?data_mode=${mode}`, signal),
+  evaluate: async (
+    configuration: BacktestConfiguration,
+    signal?: AbortSignal,
+  ): Promise<BacktestResponse> => {
+    const response = await fetch(`${base}/api/backtest/compare`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(configuration),
+      signal,
+    });
+    if (!response.ok) {
+      const body = await response.json().catch(() => null);
+      const detail = Array.isArray(body?.detail)
+        ? body.detail.map((e: { msg: string }) => e.msg).join("; ")
+        : body?.detail;
+      throw new Error(
+        detail || `Evaluation request failed (${response.status})`,
+      );
+    }
+    return response.json() as Promise<BacktestResponse>;
+  },
   portfolioReadiness: (mode: "real" | "synthetic", signal?: AbortSignal) =>
     get<PortfolioReadiness>(`/portfolio/readiness?data_mode=${mode}`, signal),
   portfolio: async (

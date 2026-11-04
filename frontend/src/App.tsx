@@ -1,3 +1,4 @@
+import { Evaluation } from "./components/Evaluation";
 import { Portfolio } from "./components/Portfolio";
 import { Analysis } from "./components/Analysis";
 import { useEffect, useState } from "react";
@@ -77,8 +78,16 @@ export default function App() {
           >
             Portfolio
           </button>
+          <button
+            aria-pressed={page === "evaluation"}
+            onClick={() => setPage("evaluation")}
+          >
+            Evaluation
+          </button>
         </nav>
-        {page === "portfolio" ? (
+        {page === "evaluation" ? (
+          <Evaluation />
+        ) : page === "portfolio" ? (
           <Portfolio />
         ) : page === "analysis" ? (
           <Analysis />

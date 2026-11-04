@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.analysis import router as analysis_router
+from app.api.backtest import router as backtest_router
 from app.api.portfolio import router as portfolio_router
 from app.api.routes import router
 from app.core.database import settings
@@ -15,3 +16,5 @@ app.include_router(router)
 app.include_router(analysis_router)
 
 app.include_router(portfolio_router)
+
+app.include_router(backtest_router)
